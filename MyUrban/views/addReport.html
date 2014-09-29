@@ -1,0 +1,27 @@
+<div data-role="view" id="share" data-layout="default" data-transition="overlay:down" class="add-activity-view"
+     data-init="app.AddReport.init" data-show="app.AddReport.show" data-model="app.AddReport">
+    <div data-role="header">
+        <div data-role="navbar">
+            Report
+            <a class="nav-button nav-button-cancel" data-align="left" data-role="backbutton">Cancel</a>
+            <a class="nav-button nav-button-post" data-align="right" data-role="button" data-bind="click: saveReport">Report</a>
+        </div>
+    </div>
+    <div id="enterStatus" class="share-form-wrp" data-role="listview" data-style="inset">
+        <div class="user-avatar">
+            <img data-bind="attr:{src: me.get('data').PictureUrl}" alt="styles/images/avatar.png" />
+        </div>
+        <h2 class="person-name" data-bind="text: me.get('data').DisplayName">Me</h2>
+        <div class="user-share">
+            <textarea id="problemDescription" placeholder="Describe the problem" required validationMessage="Report text is required!"></textarea>
+        </div>
+        <div class="btn k-button nav-button-post k-upload-button" style="position: relative;">
+            <input id="newImage" name="files" id="files" type="file" data-align="left" data-role="upload" multiple="multiple" autocomplete="off">
+            <span>Select image...</span>
+        </div>
+        <span style="margin: 0.5em; color: #000000">Or</span>
+        <div class="btn k-button nav-button-post k-upload-button" data-align="right" data-role="button" style="position: relative;">
+            <span>Capture image...</span>
+        </div>
+    </div>
+</div>

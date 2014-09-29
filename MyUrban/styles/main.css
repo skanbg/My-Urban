@@ -614,3 +614,14 @@
         background-size: 23px 23px;
     }
 }
+
+#friendsApp .wide-button{
+    color: #ffffff;
+    text-align: center;
+    display: block;
+}
+
+#friendsApp .uploadbtn{
+    position: relative;
+    text-align: left;
+}

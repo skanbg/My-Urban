@@ -1,0 +1,31 @@
+<div data-role="view" id="view-all-reports" data-layout="default" class="activities-view" data-model="app.Reports">
+    <div data-role="header">
+        <div data-role="navbar">
+            Local reports
+            <a class="nav-button nav-button-back hide-text" data-align="left" data-role="backbutton"></a>
+            <a class="nav-button nav-button-add hide-text" data-align="right" data-role="button" href="views/addReport.html">Add</a>
+        </div>
+    </div>
+
+    <ul id="reports-listview" data-style="inset" data-role="listview" data-template="reportTemplate"
+        data-bind="source: reports"></ul>
+    <p id="no-reports-span" hidden="hidden" class="no-items-msg">
+        <b>No local issues.</b><br /><br />Tap on the plus sign and share issue around you.
+    </p>
+</div>
+
+<!-- Activities ListView Template -->
+<script type="text/x-kendo-template" id="reportTemplate">
+    <div data-role="touch" class="cf">
+        <div class="user-avatar">
+            <img data-bind="attr:{src: User().PictureUrl}" alt="styles/images/avatar.png" />
+        </div>
+        <div class="report-content">
+            <h2 class="person-name">${User().DisplayName}</h2>
+            <span class="time-span">${CreatedAtFormatted()}</span>
+            <a class="user-share-txt">${Description}</a>
+            <br/>
+            <img src="${PictureUrl()}" style="width:100%;" />
+        </div>
+    </div>
+</script>
