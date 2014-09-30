@@ -123,7 +123,8 @@ app.Activities = (function () {
         return {
             activities: activitiesModel.activities,
             activitySelected: activitySelected,
-            logout: logout
+            logout: logout,
+            me: app.Users.currentUser
         };
 
     }());

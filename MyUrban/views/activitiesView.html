@@ -1,20 +1,20 @@
-<div data-role="view" id="view-all-activities" data-layout="default" class="activities-view">
+<div data-role="view" id="view-all-activities" data-layout="default" class="activities-view" data-model="app.Activities" data-model="app.Activities">
     <div data-role="header">
         <div data-role="navbar">
-            INFO
+            Hi, <span data-bind="text: me.get('data').DisplayName"></span>
             <a class="nav-button nav-button-back hide-text" data-align="left" data-role="backbutton" data-click="app.Activities.logout">Log out</a>
         </div>
     </div>
     
     <ul id="activities-listview" style="padding:1em;" data-role="listview">
         <li>
-            <a class="btn wide-button" data-role="button" href="views/activitiesView.html">Local Weather</a>
+            <a class="btn wide-button" data-role="button" href="views/weatherView.html">Local Weather</a>
         </li>
         <li>
             <a class="btn wide-button" data-role="button" href="views/localIssuesView.html">Local Issues</a>
         </li>
         <li>
-            <a class="btn wide-button" data-role="button" href="views/addReport.html">Report a Problem</a>
+            <a class="btn wide-button" data-role="button" href="views/localPlaces.html">Local places</a>
         </li>
     </ul>
 </div>

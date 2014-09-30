@@ -1,9 +1,20 @@
-<!DOCTYPE html>
-
-<html>
-    <head>
-        <title></title>
-    </head>
-    <body>
-    </body>
-</html>
+<div data-role="view" id="single-activity" data-layout="default" class="activity-view" data-model="app.Weather.data" data-init="app.Weather.init" data-show="app.Weather.show">
+    <div data-role="header">
+        <div data-role="navbar">
+            Weather
+            <a class="nav-button nav-button-back hide-text" data-align="left" data-role="backbutton">Back</a>
+        </div>
+    </div>
+    <div id="status-container" class="user-status-wrp cf" data-role="listview" data-style="inset">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title" data-bind="text: name"></h3>
+            </div>
+            <div class="panel-body">
+                <div class="activity-content">
+                    <h3 id="weatherType" class="panel-title" data-bind="text: weatherType"></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

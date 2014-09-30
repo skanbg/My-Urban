@@ -16,12 +16,13 @@
             <textarea id="problemDescription" placeholder="Describe the problem" required validationMessage="Report text is required!"></textarea>
         </div>
         <div class="btn k-button nav-button-post k-upload-button" style="position: relative;">
-            <input id="newImage" name="files" id="files" type="file" data-align="left" data-role="upload" multiple="multiple" autocomplete="off">
+            <input data-bind="events: { change: upload }" id="newImage" name="files" id="files" type="file" data-align="left" data-role="upload" multiple="multiple" autocomplete="off">
             <span>Select image...</span>
         </div>
         <span style="margin: 0.5em; color: #000000">Or</span>
-        <div class="btn k-button nav-button-post k-upload-button" data-align="right" data-role="button" style="position: relative;" data-click="app.AddReport.Capture">
+        <div class="btn k-button nav-button-post k-upload-button" data-align="right" data-role="button" data-bind="click: capture" style="position: relative;">
             <span>Capture image...</span>
         </div>
+        <img id="outputImg" style="width: 100%;" src=""/>
     </div>
 </div>

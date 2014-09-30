@@ -1,0 +1,30 @@
+<div data-role="view" id="single-activity" data-layout="default" class="activity-view" data-init="app.Local.init" data-show="app.Local.show">
+    <div data-role="header">
+        <div data-role="navbar">
+            <span data-bind="text: Type"></span>
+            <a class="nav-button nav-button-back hide-text" data-align="left" data-role="backbutton">Back</a>
+        </div>
+    </div>
+    <div id="status-container" class="user-status-wrp cf">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title" data-bind="text: PlaceName"></h3>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <button type="button" role="alert" data-bind="click: zoomIn" class="btn-lg btn-primary magic-button pull-left">
+                        <h1>+</h1>
+                    </button>
+                </div>
+                <div class="col-xs-6">
+                    <button type="button" role="alert" data-bind="click: zoomOut" class="btn-lg btn-primary magic-button pull-right">
+                        <h1>-</h1>
+                    </button>
+                </div>
+            </div>
+            <div class="panel-body">
+                <img id="map-canvas" class="resize-image" data-bind="attr:{src: Map}, source: Map" alt="styles/images/avatar.png" />
+            </div>
+        </div>
+    </div>
+</div>

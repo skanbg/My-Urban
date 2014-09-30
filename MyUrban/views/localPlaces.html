@@ -1,0 +1,21 @@
+<div data-role="view" id="view-all-reports" data-layout="default" class="activities-view" data-model="app.Locals">
+    <div data-role="header">
+        <div data-role="navbar">
+            Local Places
+            <a class="nav-button nav-button-back hide-text" data-align="left" data-role="backbutton"></a>
+            <a class="nav-button nav-button-add hide-text" data-align="right" data-role="button" href="views/addPlace.html">Add Place</a>
+        </div>
+    </div>
+    <ul id="reports-listview" data-style="inset" class="list-group" data-role="listview" data-template="localsTemplate"
+        data-bind="source: locals"></ul>
+    <p id="no-reports-span" hidden="hidden" class="no-items-msg">
+        <b>No local places.</b><br /><br />Tap on the plus sign to add new places around you.
+    </p>
+</div>
+
+<!-- Activities ListView Template -->
+<script type="text/x-kendo-template" id="localsTemplate">
+    <div data-role="touch" data-bind="events: { tap: localSelected }" class="cf list-group-item">
+        <h3 class="time-span black-color"><div class="pull-left">${PlaceName}</div><span class="label label-primary pull-right">${Type}</span></h3>
+    </div>
+</script>

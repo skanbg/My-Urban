@@ -29,25 +29,25 @@ app.Login = (function () {
             $loginUsername = $('#loginUsername');
             $loginPassword = $('#loginPassword');
 
-            if (!isFacebookLogin) {
-                $('#loginWithFacebook').addClass('disabled');
-                console.log('Facebook App ID and/or Redirect URI not set. You cannot use Facebook login.');
-            }
-            if (!isGoogleLogin) {
-                $('#loginWithGoogle').addClass('disabled');
-                console.log('Google Client ID and/or Redirect URI not set. You cannot use Google login.');
-            }
-            if (!isLiveIdLogin) {
-                $('#loginWithLiveID').addClass('disabled');
-                console.log('LiveID Client ID and/or Redirect URI not set. You cannot use LiveID login.');
-            }
-            if (!isAdfsLogin) {
-                $('#loginWithADSF').addClass('disabled');
-                console.log('ADFS Realm and/or Endpoint not set. You cannot use ADFS login.');
-            }
-            if (!isAnalytics) {
-                console.log('EQATEC product key is not set. You cannot use EQATEC Analytics service.');
-            }
+            //  if (!isFacebookLogin) {
+            //        $('#loginWithFacebook').addClass('disabled');
+            //        console.log('Facebook App ID and/or Redirect URI not set. You cannot use Facebook login.');
+            //    }
+            //     if (!isGoogleLogin) {
+            //         $('#loginWithGoogle').addClass('disabled');
+            //          console.log('Google Client ID and/or Redirect URI not set. You cannot use Google login.');
+            //       }
+            //       if (!isLiveIdLogin) {
+            //           $('#loginWithLiveID').addClass('disabled');
+            //            console.log('LiveID Client ID and/or Redirect URI not set. You cannot use LiveID login.');
+            //       }
+            //       if (!isAdfsLogin) {
+            //         $('#loginWithADSF').addClass('disabled');
+            //      console.log('ADFS Realm and/or Endpoint not set. You cannot use ADFS login.');
+            // }
+            // if (!isAnalytics) {
+            //     console.log('EQATEC product key is not set. You cannot use EQATEC Analytics service.');
+            //}
         };
 
         var show = function () {
@@ -63,27 +63,33 @@ app.Login = (function () {
 
             // Authenticate using the username and password
             app.everlive.Users.login(username, password)
-            .then(function () {
-                // EQATEC analytics monitor - track login type
-                if (isAnalytics) {
-                    analytics.TrackFeature('Login.Regular');
-                }
+                .then(function () {
+                    // EQATEC analytics monitor - track login type
+                    if (isAnalytics) {
+                        analytics.TrackFeature('Login.Regular');
+                    }
 
-                return app.Users.load();
-            })
-            .then(function () {
-
-                app.mobileApp.navigate('views/activitiesView.html');
-            })
-            .then(null,
-                  function (err) {
-                      app.showError(err.message);
-                  }
+                    return app.Users.load();
+                })
+                .then(function () {
+                    var connectionType = navigator.connection.type;
+                    if (connectionType !== Connection.WIFI && connectionType !== Connection.ETHERNET) {
+                        navigator.notification.alert('We suggest you to use WiFi to avoid carrier charges and to speed up the app usage.', function () {
+                            app.mobileApp.navigate('views/activitiesView.html');
+                        }, 'Low app performance', 'Ok');
+                    } else {
+                        app.mobileApp.navigate('views/activitiesView.html');
+                    }
+                })
+                .then(null,
+                    function (err) {
+                        app.showError(err.message);
+                    }
             );
         };
 
         // Authenticate using Facebook credentials
-        var loginWithFacebook = function() {
+        var loginWithFacebook = function () {
 
             if (!isFacebookLogin) {
                 return;
@@ -106,27 +112,27 @@ app.Login = (function () {
             var facebook = new IdentityProvider(facebookConfig);
             app.mobileApp.showLoading();
 
-            facebook.getAccessToken(function(token) {
+            facebook.getAccessToken(function (token) {
                 app.everlive.Users.loginWithFacebook(token)
-                .then(function () {
-                    // EQATEC analytics monitor - track login type
-                    if (isAnalytics) {
-                        analytics.TrackFeature('Login.Facebook');
-                    }
-                    return app.Users.load();
-                })
-                .then(function () {
-                    app.mobileApp.hideLoading();
-                    app.mobileApp.navigate('views/activitiesView.html');
-                })
-                .then(null, function (err) {
-                    app.mobileApp.hideLoading();
-                    if (err.code == 214) {
-                        app.showError('The specified identity provider is not enabled in the backend portal.');
-                    } else {
-                        app.showError(err.message);
-                    }
-                });
+                    .then(function () {
+                        // EQATEC analytics monitor - track login type
+                        if (isAnalytics) {
+                            analytics.TrackFeature('Login.Facebook');
+                        }
+                        return app.Users.load();
+                    })
+                    .then(function () {
+                        app.mobileApp.hideLoading();
+                        app.mobileApp.navigate('views/activitiesView.html');
+                    })
+                    .then(null, function (err) {
+                        app.mobileApp.hideLoading();
+                        if (err.code == 214) {
+                            app.showError('The specified identity provider is not enabled in the backend portal.');
+                        } else {
+                            app.showError(err.message);
+                        }
+                    });
             });
         };
 
@@ -153,27 +159,27 @@ app.Login = (function () {
             var google = new IdentityProvider(googleConfig);
             app.mobileApp.showLoading();
 
-            google.getAccessToken(function(token) {
+            google.getAccessToken(function (token) {
                 app.everlive.Users.loginWithGoogle(token)
-                .then(function () {
-                    // EQATEC analytics monitor - track login type
-                    if (isAnalytics) {
-                        analytics.TrackFeature('Login.Google');
-                    }
-                    return app.Users.load();
-                })
-                .then(function () {
-                    app.mobileApp.hideLoading();
-                    app.mobileApp.navigate('views/activitiesView.html');
-                })
-                .then(null, function (err) {
-                    app.mobileApp.hideLoading();
-                    if (err.code == 214) {
-                        app.showError('The specified identity provider is not enabled in the backend portal.');
-                    } else {
-                        app.showError(err.message);
-                    }
-                });
+                    .then(function () {
+                        // EQATEC analytics monitor - track login type
+                        if (isAnalytics) {
+                            analytics.TrackFeature('Login.Google');
+                        }
+                        return app.Users.load();
+                    })
+                    .then(function () {
+                        app.mobileApp.hideLoading();
+                        app.mobileApp.navigate('views/activitiesView.html');
+                    })
+                    .then(null, function (err) {
+                        app.mobileApp.hideLoading();
+                        if (err.code == 214) {
+                            app.showError('The specified identity provider is not enabled in the backend portal.');
+                        } else {
+                            app.showError(err.message);
+                        }
+                    });
             });
         };
 
@@ -200,27 +206,27 @@ app.Login = (function () {
             var liveId = new IdentityProvider(liveIdConfig);
             app.mobileApp.showLoading();
 
-            liveId.getAccessToken(function(token) {
+            liveId.getAccessToken(function (token) {
                 app.everlive.Users.loginWithLiveID(token)
-                .then(function () {
-                    // EQATEC analytics monitor - track login type
-                    if (isAnalytics) {
-                        analytics.TrackFeature('Login.LiveID');
-                    }
-                    return app.Users.load();
-                })
-                .then(function () {
-                    app.mobileApp.hideLoading();
-                    app.mobileApp.navigate('views/activitiesView.html');
-                })
-                .then(null, function (err) {
-                    app.mobileApp.hideLoading();
-                    if (err.code == 214) {
-                        app.showError('The specified identity provider is not enabled in the backend portal.');
-                    } else {
-                        app.showError(err.message);
-                    }
-                });
+                    .then(function () {
+                        // EQATEC analytics monitor - track login type
+                        if (isAnalytics) {
+                            analytics.TrackFeature('Login.LiveID');
+                        }
+                        return app.Users.load();
+                    })
+                    .then(function () {
+                        app.mobileApp.hideLoading();
+                        app.mobileApp.navigate('views/activitiesView.html');
+                    })
+                    .then(null, function (err) {
+                        app.mobileApp.hideLoading();
+                        if (err.code == 214) {
+                            app.showError('The specified identity provider is not enabled in the backend portal.');
+                        } else {
+                            app.showError(err.message);
+                        }
+                    });
             });
         };
 
@@ -243,27 +249,27 @@ app.Login = (function () {
             var adfs = new IdentityProvider(adfsConfig);
             app.mobileApp.showLoading();
 
-            adfs.getAccessToken(function(token) {
+            adfs.getAccessToken(function (token) {
                 app.everlive.Users.loginWithADFS(token)
-                .then(function () {
-                    // EQATEC analytics monitor - track login type
-                    if (isAnalytics) {
-                        analytics.TrackFeature('Login.ADFS');
-                    }
-                    return app.Users.load();
-                })
-                .then(function () {
-                    app.mobileApp.hideLoading();
-                    app.mobileApp.navigate('views/activitiesView.html');
-                })
-                .then(null, function (err) {
-                    app.mobileApp.hideLoading();
-                    if (err.code == 214) {
-                        app.showError('The specified identity provider is not enabled in the backend portal.');
-                    } else {
-                        app.showError(err.message);
-                    }
-                });
+                    .then(function () {
+                        // EQATEC analytics monitor - track login type
+                        if (isAnalytics) {
+                            analytics.TrackFeature('Login.ADFS');
+                        }
+                        return app.Users.load();
+                    })
+                    .then(function () {
+                        app.mobileApp.hideLoading();
+                        app.mobileApp.navigate('views/activitiesView.html');
+                    })
+                    .then(null, function (err) {
+                        app.mobileApp.hideLoading();
+                        if (err.code == 214) {
+                            app.showError('The specified identity provider is not enabled in the backend portal.');
+                        } else {
+                            app.showError(err.message);
+                        }
+                    });
             });
         };
 

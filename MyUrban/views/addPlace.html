@@ -1,0 +1,16 @@
+<div data-role="view" id="share" data-layout="default" data-transition="overlay:down" class="add-activity-view"
+     data-init="app.AddPlace.init" data-show="app.AddPlace.show" data-model="app.AddPlace">
+    <div data-role="header">
+        <div data-role="navbar">
+            Place
+            <a class="nav-button nav-button-cancel" data-align="left" data-role="backbutton">Cancel</a>
+            <a class="nav-button nav-button-post" data-align="right" data-role="button" data-bind="click: savePlace">Save</a>
+        </div>
+    </div>
+    <div id="enterStatus" class="share-form-wrp" data-role="listview" data-style="inset">
+        <div class="user-share">
+            <input id="placeName" placeholder="Set name of your current location" required validationMessage="Location name is required">
+            <input id="placeType" placeholder="Categorise your location" required validationMessage="Location category is required">
+        </div>
+    </div>
+</div>
